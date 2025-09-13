@@ -11,7 +11,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         token['name'] = user.username
-        token['nimadir'] = 'nimadir'
 
         return token
 

@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from apps.accounts.serializers import RegisterSerializer, LoginSerializer, RefreshTokenSerializer
-from apps.shared.utils.custom_response import CustomResponse
+# from apps.shared.utils.custom_response import CustomResponse
 from apps.utils.token_claim import get_tokens_for_user
 
 
@@ -51,8 +51,7 @@ class UserProfileAPIView(APIView):
             "id": user.id,
             "username": user.username
         }
-        return CustomResponse.success(
-            message_key='SUCCESS',
-            request=request,
-            data=data
+        return Response(
+            data=data,
+            status=status.HTTP_200_OK
         )

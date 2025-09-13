@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'apps.accounts',
     'apps.blogs',
+    'apps.products',
+    'apps.orders',
 
 ]
 
@@ -75,11 +77,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "n66_blogs",
+        "USER": "admin",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -126,7 +131,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'apps.shared.exceptions.handler.custom_exception_handler',
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    # 'EXCEPTION_HANDLER': 'apps.shared.exceptions.handler.custom_exception_handler',
 }
 SIMPLE_JWT = {
     "TOKEN_OBTAIN_SERIALIZER": "apps.utils.token_claim.MyTokenObtainPairSerializer",

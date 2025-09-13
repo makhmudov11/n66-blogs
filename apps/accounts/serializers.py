@@ -1,11 +1,16 @@
 from typing import Any
 
 from django.contrib.auth import authenticate
-from rest_framework import serializers, status
+from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
 
 class RegisterSerializer(serializers.ModelSerializer):

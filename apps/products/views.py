@@ -1,5 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.response import Response
 
+from apps.blogs.utils.custom_pagination import CustomPageNumberPagination
 from apps.products.models import Product
 from apps.products.permissions import ProductPermission, ProductDetailPermission, CategoryDetailPermission, \
     CategoryPermission
@@ -10,6 +12,19 @@ class ProductListCreateAPIView(ListCreateAPIView):
     queryset = Product.objects.all()
     permission_classes = [ProductPermission]
     serializer_class = ProductSerializer
+    pagination_class = CustomPageNumberPagination
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            paginated_data = self.get_paginated_response(serializer.data)
+
+            return Response(
+                data=paginated_data
+            )
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

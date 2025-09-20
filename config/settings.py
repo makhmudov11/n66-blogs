@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.blogs',
     'apps.products',
     'apps.orders',
+    'apps.cart'
 
 ]
 
@@ -134,6 +135,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2,
     # 'EXCEPTION_HANDLER': 'apps.shared.exceptions.handler.custom_exception_handler',
 }
 SIMPLE_JWT = {

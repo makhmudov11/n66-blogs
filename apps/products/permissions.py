@@ -11,13 +11,12 @@ class ProductPermission(BasePermission):
 
         return False
 
+
 class ProductDetailPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
-        return ( request.user.is_authenticated and request.user.is_staff ) or request.user == obj.owner
-
-
+        return (request.user.is_authenticated and request.user.is_staff) or request.user == obj.owner
 
 
 class CategoryPermission(BasePermission):
@@ -30,8 +29,9 @@ class CategoryPermission(BasePermission):
 
         return False
 
+
 class CategoryDetailPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
-        return ( request.user.is_authenticated and request.user.is_staff ) or request.user == obj.owner
+        return (request.user.is_authenticated and request.user.is_staff) or request.user == obj.owner
